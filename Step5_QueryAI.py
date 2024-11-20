@@ -142,7 +142,8 @@ def process_keywords(input_file, output_file):
         dict: Resultado del procesamiento en formato JSON.
     """
     
-    print("Procesando palabras clave...", input_file)
+    print("Procesando palabras clave... OPEN AI", input_file)
+    print(API_KEY)
     
     result = {"status": "processing", "steps": []}
     

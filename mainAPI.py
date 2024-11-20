@@ -31,7 +31,7 @@ os.makedirs(VIDEOS_DIR, exist_ok=True)
 os.makedirs(FRAMES_BASE_DIR, exist_ok=True)
 os.makedirs(TEXT_DIR, exist_ok=True)
 
-API_URL = "http://localhost:8000/upload"  # URL de la API de destino
+API_URL = "http://localhost:9000/upload"  # URL de la API de destino
 
 def process_video_pipeline(video_path, video_name):
     try:
@@ -63,6 +63,8 @@ def process_video_pipeline(video_path, video_name):
     except Exception as e:
         return {"status": "error", "message": f"Error in JSON generation: {str(e)}"}
 
+    print("INGRESAR A OPENAI ########")
+
     try:
         inputfile = "keyWords.txt"
         outfile = "movie_data.json"
@@ -72,7 +74,7 @@ def process_video_pipeline(video_path, video_name):
 
     # Enviar el archivo JSON y el video a otra API
     try:
-        with open(outfile, 'rb') as json_file, open(video_path, 'rb') as video_file:
+        with open("movie_data.json", 'rb') as json_file, open(video_path, 'rb') as video_file:
             files = {
                 'json': ('response.json', json_file, 'application/json'),
                 'video': (video_name, video_file, 'video/mp4')

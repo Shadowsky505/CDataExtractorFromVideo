@@ -1,5 +1,5 @@
 # Etapa 1: Crear una imagen base ligera
-FROM python:3.9-slim AS base
+FROM python:3.12-slim AS base
 
 # Crear directorio de trabajo en el contenedor
 WORKDIR /app

@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import os
 import requests
 from concurrent.futures import ThreadPoolExecutor
@@ -10,6 +11,16 @@ from Step4_Cleaning import generar_json_palabras_clave
 from Step5_QueryAI import process_keywords
 
 app = Flask(__name__)
+# Habilitar CORS para todas las rutas
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"],
+        "supports_credentials": True
+    }
+})
+
 executor = ThreadPoolExecutor(max_workers=5)
 
 FRAMES_BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "videos/frames")
@@ -89,4 +100,4 @@ def upload_and_process_video():
     return jsonify(result), 200 if result["status"] == "success" else 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=8000)

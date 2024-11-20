@@ -1,9 +1,15 @@
 import openai
 import json
 import os
+from dotenv import load_dotenv
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
 
-# Configurar la API de OpenAI
-API_KEY = ""
+# Obtener la API key desde la variable de entorno
+API_KEY = os.getenv('OPENAI_API_KEY')
+if not API_KEY:
+    raise ValueError("No se encontró la API key de OpenAI en las variables de entorno. Asegúrate de establecer OPENAI_API_KEY.")
+
 openai.api_key = API_KEY
 
 def read_keywords(file_path):

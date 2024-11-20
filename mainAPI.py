@@ -102,4 +102,4 @@ def upload_and_process_video():
     return jsonify(result), 200 if result["status"] == "success" else 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run(debug=True, host='0.0.0.0', port=8000)

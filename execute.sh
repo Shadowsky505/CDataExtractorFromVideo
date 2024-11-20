@@ -1,5 +1,6 @@
 #!/bin/bash
-
+apt update
+apt install docker.io docker-compose -y
 # Solicitar la API Key
 read -p "Ingresa tu API Key: " API_KEY
 

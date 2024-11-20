@@ -1,0 +1,12 @@
+services:
+  vosk-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vosk-api:latest # Asigna un nombre a la imagen
+    container_name: vosk-api-container # Nombre del contenedor
+    ports:
+      - "8000:8000" # Mapear el puerto 8000
+    environment:
+      - API_KEY=${API_KEY} # La variable API_KEY se tomará del entorno
+    restart: unless-stopped

@@ -13,8 +13,6 @@ services:
     volumes:
       - modelo_cache:/root/.cache
       - vosk_volume:/app/vosk  # Asocia el volumen "vosk_volume" con "/app/vosk" en el contenedor
-      - librerias_volume:/app/venv/lib/python3.12/site-packages  # Volumen para las librerías de Python
 volumes:
   modelo_cache:
   vosk_volume:
-  librerias_volume:  # Volumen para las librerías de Python

@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install --no-cache-dir -r Requirements.txt
 
 # Descargar y descomprimir el modelo Vosk
-RUN apt-get update && apt-get install -y wget unzip libgl1 libglib2.0-0 ffmpeg && \
+RUN apt-get update && apt-get install -y wget unzip libatlas-base-dev univicorn libgl1 libglib2.0-0 ffmpeg && \
     wget https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip -O vosk.zip && \
     unzip vosk.zip && mv vosk-model-small-es-0.42 vosk && \
     rm vosk.zip && \
@@ -20,5 +20,5 @@ RUN apt-get update && apt-get install -y wget unzip libgl1 libglib2.0-0 ffmpeg &
 # Establecer el puerto para la API
 EXPOSE 8000
 
-# Ejecutar el servicio principal como root
-CMD ["python", "mainAPI.py"]
+# Comando para ejecutar la API
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

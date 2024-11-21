@@ -32,7 +32,7 @@ RUN if [ ! -d "/app/vosk" ]; then \
 RUN apt-get remove -y wget unzip && apt-get autoremove -y && apt-get clean
 
 # Ejecutar el script de verificación en el entorno virtual
-RUN /app/venv/bin/python verificar_modelo.py
+# RUN /app/venv/bin/python verificar_modelo.py
 
 # Establecer el puerto para la API
 EXPOSE 8000

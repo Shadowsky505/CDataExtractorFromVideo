@@ -4,7 +4,7 @@ import os
 import requests
 from concurrent.futures import ThreadPoolExecutor
 from Step1_Framing import split_video_into_scenes
-from Step2_Describing import procesar_imagenes_y_guardar_descripciones
+from Step2_Describing import procesar_imagen_y_generar_descripcion
 from Step2_Transcribing import process_video
 from Step3_Tokenizer import procesar_videos_para_tokenizacion
 from Step4_Cleaning import generar_json_palabras_clave
@@ -31,7 +31,7 @@ os.makedirs(VIDEOS_DIR, exist_ok=True)
 os.makedirs(FRAMES_BASE_DIR, exist_ok=True)
 os.makedirs(TEXT_DIR, exist_ok=True)
 
-API_URL = "http://localhost:9000/upload"  # URL de la API de destino
+API_URL = "http://18.207.118.203:9000/upload"  # URL de la API de destino
 
 def process_video_pipeline(video_path, video_name):
     try:
@@ -40,7 +40,7 @@ def process_video_pipeline(video_path, video_name):
         return {"status": "error", "message": f"Error in scene splitting: {str(e)}"}
 
     try:
-        procesar_imagenes_y_guardar_descripciones(FRAMES_BASE_DIR)
+        procesar_imagen_y_generar_descripcion(FRAMES_BASE_DIR)
     except Exception as e:
         return {"status": "error", "message": f"Error in describing images: {str(e)}"}
 

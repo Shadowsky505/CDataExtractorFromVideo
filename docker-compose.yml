@@ -9,10 +9,4 @@ services:
       - "8000:8000"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-    restart: unless-stopped
-    volumes:
-      - modelo_cache:/root/.cache
-      - vosk_volume:/app/vosk  # Asocia el volumen "vosk_volume" con "/app/vosk" en el contenedor
-volumes:
-  modelo_cache:
-  vosk_volume:
+    restart: unless-stopped # Asocia el volumen "vosk_volume" con "/app/vosk" en el contenedor

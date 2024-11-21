@@ -21,7 +21,8 @@ RUN apt-get update && apt-get install -y wget unzip libgl1 libglib2.0-0 ffmpeg &
     apt-get remove -y wget unzip && apt-get autoremove -y && apt-get clean
 
     # Establecer el puerto para la API
-RUN python verificar_modelo.py
+RUN /app/venv/bin/python verificar_modelo.py
+
 
 EXPOSE 8000
 

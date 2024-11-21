@@ -15,7 +15,7 @@ RUN /app/venv/bin/pip install --no-cache-dir -r Requirements.txt
 
 # Descargar y descomprimir el modelo Vosk
 # Descargar y descomprimir el modelo Vosk
-RUN apt-get update && apt-get install -y wget unzip libgll libglib2.0-0 ffmpeg && \
+RUN apt-get update && apt-get install -y wget unzip libgl1 libglib2.0-0 ffmpeg && \
     wget https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip -O vosk.zip && \
     unzip vosk.zip && mv vosk-model-small-es-0.42 vosk && \
     rm vosk.zip && \

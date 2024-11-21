@@ -24,5 +24,5 @@ def cargar_o_descargar_modelo(nombre_modelo="Salesforce/blip-image-captioning-ba
         model = BlipForConditionalGeneration.from_pretrained(nombre_modelo)
         print(f"Modelo descargado y almacenado en: {huggingface_dir}")
 
-if _name_ == "_main_":
-    cargar_o_descargar_modelo()
+
+cargar_o_descargar_modelo()

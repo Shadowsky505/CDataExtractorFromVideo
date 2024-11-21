@@ -3,16 +3,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: vosk-api:latest # Asigna un nombre a la imagen
-    container_name: vosk-api-container # Nombre del contenedor
+    image: vosk-api:latest
+    container_name: vosk-api-container
     ports:
-      - "8000:8000" # Mapear el puerto 8000
+      - "8000:8000"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY} # La variable API_KEY se tomará del entorno
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     restart: unless-stopped
     volumes:
       - modelo_cache:/root/.cache
-      - vosk_volume:/app/vosk  # Asocia el volumen "vosk_volume" con "/app/vosk" en el contenedor
+      - vosk_volume:/app/vosk  # Asocia el volumen "vosk_volume" con "/app/vosk" en el contenedor
+      - librerias_volume:/app/venv/lib/python3.12/site-packages  # Volumen para las librerías de Python
 volumes:
   modelo_cache:
-  vosk_volume: 
+  vosk_volume:
+  librerias_volume:  # Volumen para las librerías de Python

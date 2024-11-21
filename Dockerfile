@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y wget unzip libgl1 libglib2.0-0 ffmpeg
 # Verificar si el modelo ya está presente, si no lo está, descargarlo
 RUN if [ ! -d "/app/vosk" ]; then \
       wget https://alphacephei.com/vosk/models/vosk-model-small-es-0.42.zip -O vosk.zip && \
-      unzip vosk.zip && mv vosk-model-fr-0.6-linto-2.2.0 vosk && \
+      unzip vosk.zip && mv vosk-model-small-es-0.42.zip vosk && \
       rm vosk.zip; \
     fi
 

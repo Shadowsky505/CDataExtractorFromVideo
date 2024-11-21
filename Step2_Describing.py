@@ -5,22 +5,25 @@ from PIL import Image
 
 
 def cargar_modelo_blip():
-    """Carga el modelo BLIP y su procesador una sola vez para reutilización."""
-    print("Cargando modelo BLIP...")
+    """Carga el modelo BLIP y su procesador."""
+    print("Cargando modelo BLIP en este proceso...")
     processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
     model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
-    print("Modelo BLIP cargado correctamente.")
     return processor, model
 
 
-def procesar_imagen_y_generar_descripcion(args):
+def procesar_imagen_y_generar_descripcion(ruta_imagen):
     """Genera una descripción para una imagen específica usando BLIP."""
-    ruta_imagen, processor, model = args
     try:
+        # Cargar el modelo en el proceso hijo
+        processor, model = cargar_modelo_blip()
+
+        # Procesar la imagen
         with Image.open(ruta_imagen).convert('RGB') as image:
             inputs = processor(image, return_tensors="pt")
             output = model.generate(**inputs)
             descripcion = processor.decode(output[0], skip_special_tokens=True)
+        
         os.remove(ruta_imagen)  # Elimina la imagen después de procesarla
         print(f"Imagen {ruta_imagen} procesada y eliminada.")
         return descripcion
@@ -40,7 +43,6 @@ def procesar_imagenes_en_directorio(ruta_frames, extensiones_imagenes={'.jpg'}, 
     - max_workers: Número máximo de procesos en paralelo.
     - batch_size: Número de imágenes a procesar por lote.
     """
-    processor, model = cargar_modelo_blip()
     archivos_imagen = [
         os.path.join(ruta_frames, archivo)
         for archivo in os.listdir(ruta_frames)
@@ -54,10 +56,7 @@ def procesar_imagenes_en_directorio(ruta_frames, extensiones_imagenes={'.jpg'}, 
     for i in range(0, len(archivos_imagen), batch_size):
         batch = archivos_imagen[i:i + batch_size]
         with ProcessPoolExecutor(max_workers=max_workers) as executor:
-            resultados = executor.map(
-                procesar_imagen_y_generar_descripcion,
-                [(ruta, processor, model) for ruta in batch],
-            )
+            resultados = executor.map(procesar_imagen_y_generar_descripcion, batch)
             descripciones.extend(resultados)
 
     # Guardar descripciones en un archivo de texto
